@@ -1,0 +1,18 @@
+services:
+    agents-devcontainer:
+        network_mode: host
+        image: agents-devcontainer
+        container_name: agents-devcontainer
+        build:
+            context: ..
+            dockerfile: .devcontainer/Dockerfile
+            args:
+                - PYTHON_VERSION
+                - UV_VERSION
+                - DEVCONTAINER_USER
+        volumes:
+            - ..:/workspace:cached
+        env_file:
+            - .env
+        # This keeps the devcontainer running.
+        entrypoint: ["tail", "-f", "/dev/null"]
