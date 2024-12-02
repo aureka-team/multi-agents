@@ -1,4 +1,4 @@
 pydantic==2.10.2
 langgraph==0.2.53
 
-common @ git+https://github.com/aureka-team/common.git@v1.1.0
+common @ git+https://github.com/aureka-team/common.git@v1.1.1
