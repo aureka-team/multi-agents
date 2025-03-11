@@ -1,8 +1,8 @@
 services:
-    agents-devcontainer:
+    multi-agents-devcontainer:
         network_mode: host
-        image: agents-devcontainer
-        container_name: agents-devcontainer
+        image: multi-agents-devcontainer
+        container_name: multi-agents-devcontainer
         build:
             context: ..
             dockerfile: .devcontainer/Dockerfile

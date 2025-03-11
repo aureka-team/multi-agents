@@ -1,5 +1,5 @@
-from agents.graph import Node
-from agents.examples.simple_agent.schema import StateSchema, ConfigSchema
+from multi_agents.graph import Node
+from ..schema import StateSchema, ConfigSchema
 
 
 def run(state: StateSchema, config: ConfigSchema) -> StateSchema:

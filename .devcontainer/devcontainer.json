@@ -1,7 +1,7 @@
 {
-    "name": "agents",
+    "name": "multi-agents",
     "dockerComposeFile": "docker-compose.yml",
-    "service": "agents-devcontainer",
+    "service": "multi-agents-devcontainer",
     "workspaceFolder": "/workspace",
     "customizations": {
         "vscode": {

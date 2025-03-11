@@ -4,9 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 requires-python = ">=3.11"
-name = "agents"
+name = "multi_agents"
 dynamic = ["version", "dependencies"]
-description = "Agents"
+description = "Multi Agents"
 readme = "README.md"
 authors = [{ name = "Bas", email = "bastiansg.bas@gmail.com" }]
 license = { file = "LICENSE" }
@@ -17,7 +17,7 @@ classifiers = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["agents"]
+include = ["multi_agents"]
 
 [tool.setuptools.dynamic]
 dependencies = { file = ["requirements.txt"] }

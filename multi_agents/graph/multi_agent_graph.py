@@ -28,19 +28,27 @@ class Node(BaseModel):
 
 
 class ConditionalEdge(BaseModel):
-    type: StrictStr = Field(default="conditional", allow_mutation=False)
+    type: StrictStr = Field(
+        default="conditional",
+        allow_mutation=False,
+    )
+
     source: StrictStr | list[StrictStr]
     intermediates: list[StrictStr]
     router: Callable[[StateSchema, ConfigSchema], StateSchema]
 
 
 class SimpleEdge(BaseModel):
-    type: StrictStr = Field(default="simple", allow_mutation=False)
+    type: StrictStr = Field(
+        default="simple",
+        allow_mutation=False,
+    )
+
     source: StrictStr | list[StrictStr]
     target: StrictStr
 
 
-class AgentGraph(BaseModel):
+class MultiAgentGraph(BaseModel):
     state_schema: Type[BaseModel]
     config_schema: Type[BaseModel]
     nodes: list[Node]
