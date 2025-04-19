@@ -1,4 +1,5 @@
 pydantic>=2.11.3
 langgraph==0.3.30
+grandalf==0.8
 
 common @ git+https://github.com/aureka-team/common.git@v1.1.6
