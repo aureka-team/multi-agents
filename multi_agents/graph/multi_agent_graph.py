@@ -1,4 +1,4 @@
-from typing import Type, Callable
+from typing import Type, Callable, Literal
 from pydantic import (
     BaseModel,
     StrictStr,
@@ -94,12 +94,25 @@ class MultiAgentGraph(BaseModel):
         checkpointer = MemorySaver() if self.with_memory else None
         self.graph = graph_builder.compile(checkpointer=checkpointer)
 
-    def display_graph(self) -> None:
+    def display_graph(
+        self,
+        draw_type: Literal[
+            "ascii",
+            "mermaid",
+        ] = "ascii",
+    ) -> None:
         if self.graph is None:
             logger.error("the graph was not created.")
             return
 
-        display(Image(self.graph.get_graph().draw_mermaid_png()))
+        match draw_type:
+            case "ascii":
+                ascii_graph = self.graph.get_graph().draw_ascii()
+                print(ascii_graph)
+
+            case "mermaid":
+                graph_image = self.graph.get_graph().draw_mermaid_png()
+                display(Image(graph_image))
 
     async def run(
         self,
