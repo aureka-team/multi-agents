@@ -1,5 +1,5 @@
-pydantic>=2.11.3
-langgraph==0.3.30
+pydantic>=2.11.4
+langgraph==0.4.5
 grandalf==0.8
 
-common @ git+https://github.com/aureka-team/common.git@v1.1.6
+common @ git+https://github.com/aureka-team/common.git@v1.1.8
