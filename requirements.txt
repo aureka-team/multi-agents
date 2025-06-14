@@ -1,4 +1,6 @@
 pydantic>=2.11.4
+ipython>=9.3.0
+
 langgraph==0.4.8
 grandalf==0.8
 
