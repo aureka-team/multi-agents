@@ -1,11 +1,8 @@
 from langgraph.graph import END
-from ..schema import StateSchema, ConfigSchema
+from ..schema import StateSchema
 
 
-def palindrome_num_words_router(
-    state: StateSchema,
-    config: ConfigSchema,
-) -> list[str]:
+def palindrome_num_words_router(state: StateSchema) -> list[str]:
     if state.is_palindrome:
         return ["num_words"]
 

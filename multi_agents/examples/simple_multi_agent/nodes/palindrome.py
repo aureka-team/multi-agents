@@ -1,8 +1,8 @@
 from multi_agents.graph import Node
-from ..schema import StateSchema, ConfigSchema
+from ..schema import StateSchema
 
 
-def run(state: StateSchema, config: ConfigSchema) -> StateSchema:
+def run(state: StateSchema) -> dict:
     message = state.message
     if "".join(reversed(message)) == message:
         return {"is_palindrome": True}

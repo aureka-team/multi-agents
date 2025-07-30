@@ -1,6 +1,6 @@
 from multi_agents.graph import MultiAgentGraph
 
-from .schema import StateSchema, ConfigSchema
+from .schema import StateSchema, ContextSchema
 from .nodes import palindrome, num_words, sentence_palindrome
 from .edges import palindrome_num_words, num_words_sentence_palindrome
 
@@ -19,7 +19,7 @@ def get_multi_agent() -> MultiAgentGraph:
 
     multi_agent = MultiAgentGraph(
         state_schema=StateSchema,
-        config_schema=ConfigSchema,
+        context_schema=ContextSchema,
         nodes=nodes,
         edges=edges,
     )
