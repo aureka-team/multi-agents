@@ -1,6 +1,6 @@
 from collections.abc import Hashable
 from pydantic import BaseModel, StrictStr, StrictBool
-from typing import Type, Callable, Literal, TypeVar, Generic, Awaitable
+from typing import Type, Callable, Literal, TypeVar, Generic, Awaitable, Any
 
 from common.logger import get_logger
 from IPython.display import Image, display
@@ -14,7 +14,7 @@ logger = get_logger(__name__)
 
 
 T = TypeVar("T", bound=BaseModel)
-RunType = Callable[[T], dict | Awaitable[dict]]
+RunType = Callable[[T], dict[str, Any] | Awaitable[dict[str, Any]]]
 
 
 class Node(BaseModel, Generic[T]):
