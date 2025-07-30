@@ -5,9 +5,13 @@ from ..schema import StateSchema
 def run(state: StateSchema) -> dict:
     message = state.message
     if "".join(reversed(message)) == message:
-        return {"is_palindrome": True}
+        return {
+            "is_palindrome": True,
+        }
 
-    return {"is_palindrome": False}
+    return {
+        "is_palindrome": False,
+    }
 
 
 palindrome = Node(
