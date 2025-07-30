@@ -1,5 +1,5 @@
 from collections.abc import Hashable
-from pydantic import BaseModel, StrictStr, StrictBool
+from pydantic import BaseModel, StrictStr, StrictBool, ConfigDict
 from typing import Type, Callable, Literal, TypeVar, Generic, Awaitable, Any
 
 from common.logger import get_logger
@@ -13,21 +13,22 @@ from langgraph.checkpoint.memory import InMemorySaver
 logger = get_logger(__name__)
 
 
-T = TypeVar("T", bound=BaseModel)
-RunType = Callable[[T], dict[str, Any] | Awaitable[dict[str, Any]]]
+StateT = TypeVar("StateT", bound=BaseModel)
+ContextT = TypeVar("ContextT", bound=BaseModel)
+RunType = Callable[[StateT], dict[str, Any] | Awaitable[dict[str, Any]]]
 
 
-class Node(BaseModel, Generic[T]):
+class Node(BaseModel, Generic[StateT]):
     name: StrictStr
     run: RunType
     is_entry_point: StrictBool = False
     is_finish_point: StrictBool = False
 
 
-class ConditionalEdge(BaseModel, Generic[T]):
+class ConditionalEdge(BaseModel, Generic[StateT]):
     source: StrictStr
     intermediates: list[StrictStr]
-    router: Callable[[T], list[Hashable]]
+    router: Callable[[StateT], list[Hashable]]
 
 
 class SimpleEdge(BaseModel):
@@ -35,13 +36,19 @@ class SimpleEdge(BaseModel):
     target: StrictStr
 
 
-class MultiAgentGraph(BaseModel):
-    state_schema: Type[BaseModel]
-    context_schema: Type[BaseModel]
-    nodes: list[Node]
-    edges: list[SimpleEdge | ConditionalEdge]
+class MultiAgentGraph(BaseModel, Generic[StateT, ContextT]):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    state_schema: Type[StateT]
+    context_schema: Type[ContextT]
+    nodes: list[Node[StateT]]
+    edges: (
+        list[SimpleEdge | ConditionalEdge]
+        | list[SimpleEdge]
+        | list[ConditionalEdge]
+    )
     with_memory: StrictBool = True
-    graph: Type[CompiledStateGraph] | None = None
+    graph: CompiledStateGraph[StateT, ContextT, Any, Any] | None = None
 
     def compile(self) -> None:
         graph_builder = StateGraph(
@@ -98,16 +105,16 @@ class MultiAgentGraph(BaseModel):
 
     async def run(
         self,
-        input_state: BaseModel,
-        context: BaseModel,
+        input_state: StateT,
+        context: ContextT,
         thread_id: str,
-    ) -> BaseModel | None:
+    ) -> dict[str, Any] | None:
         if self.graph is None:
             return
 
         return await self.graph.ainvoke(
             input=input_state,
-            context=context.model_dump(),
+            context=context,
             config={
                 "thread_id": thread_id,
             },
