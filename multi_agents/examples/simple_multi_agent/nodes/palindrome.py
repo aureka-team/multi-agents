@@ -1,10 +1,10 @@
 from typing import Any
 
 from multi_agents.graph import Node
-from ..schema import StateSchema
+from ..schema import State
 
 
-def run(state: StateSchema) -> dict[str, Any]:
+def run(state: State) -> dict[str, Any]:
     message = state.message
     if "".join(reversed(message)) == message:
         return {

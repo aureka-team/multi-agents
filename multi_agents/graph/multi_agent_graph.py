@@ -108,14 +108,18 @@ class MultiAgentGraph(BaseModel, Generic[StateT, ContextT]):
         input_state: StateT,
         context: ContextT,
         thread_id: str,
-    ) -> dict[str, Any] | None:
+    ) -> StateT | None:
         if self.graph is None:
             return
 
-        return await self.graph.ainvoke(
+        state = await self.graph.ainvoke(
             input=input_state,
             context=context,
             config={
-                "thread_id": thread_id,
+                "configurable": {
+                    "thread_id": thread_id,
+                },
             },
         )
+
+        return self.state_schema(**state)

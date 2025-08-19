@@ -2,11 +2,11 @@ from typing import Any
 from langgraph.runtime import get_runtime
 
 from multi_agents.graph import Node
-from ..schema import StateSchema, ContextSchema
+from ..schema import State, Context
 
 
-def run(state: StateSchema) -> dict[str, Any]:
-    runtime = get_runtime(ContextSchema)
+def run(state: State) -> dict[str, Any]:
+    runtime = get_runtime(Context)
 
     if state.n_words is None:
         return {}
