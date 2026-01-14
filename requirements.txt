@@ -1,8 +1,8 @@
-pydantic>=2.11.7
-ipython>=9.4.0
+pydantic>=2.12.5
+ipython>=9.9.0
 
-langgraph==0.6.5
+langgraph==1.0.6
 grandalf==0.8
 
 # Aureka packages
-common>=1.1.10
+common>=1.1.13
