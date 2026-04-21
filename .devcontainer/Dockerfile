@@ -1,4 +1,4 @@
-ARG UV_VERSION=0.9.27
+ARG UV_VERSION=0.11.7
 FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv_source
 
 FROM ubuntu:plucky
@@ -28,6 +28,7 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python${PYTHON
     && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1
 
 ENV UV_SYSTEM_PYTHON=1
+ENV UV_LINK_MODE=copy
 COPY --from=uv_source /uv /uvx /bin/
 
 WORKDIR /tmp

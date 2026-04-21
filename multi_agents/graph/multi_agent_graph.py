@@ -108,6 +108,7 @@ class MultiAgentGraph(BaseModel, Generic[StateT, ContextT]):
         input_state: StateT,
         context: ContextT,
         thread_id: str,
+        max_concurrency: int = 10_000,
     ) -> StateT | None:
         if self.graph is None:
             return
@@ -118,6 +119,7 @@ class MultiAgentGraph(BaseModel, Generic[StateT, ContextT]):
             config={
                 "configurable": {
                     "thread_id": thread_id,
+                    "max_concurrency": max_concurrency,
                 },
             },
         )
