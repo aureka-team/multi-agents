@@ -16,8 +16,12 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 
+[tool.setuptools]
+package-dir = { "" = "src" }
+
 [tool.setuptools.packages.find]
-include = ["multi_agents"]
+where = ["src"]
+include = ["multi_agents*"]
 
 [tool.setuptools.dynamic]
 dependencies = { file = ["requirements.txt"] }
