@@ -59,7 +59,7 @@ class MultiAgentGraph(BaseModel, Generic[StateT, ContextT]):
         # NOTE: Add nodes.
         for node in self.nodes:
             node_name = node.name
-            graph_builder.add_node(node_name, node.run)
+            graph_builder.add_node(node_name, node.run)  # type: ignore
 
             if node.is_entry_point:
                 graph_builder.set_entry_point(node_name)
