@@ -1,4 +1,4 @@
-ARG UV_VERSION=0.11.7
+ARG UV_VERSION=0.11.8
 FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv_source
 
 FROM ubuntu:plucky
@@ -38,9 +38,7 @@ RUN --mount=type=cache,target=/root/.cache uv pip install -r requirements.txt
 
 COPY ./requirements.txt requirements.txt
 RUN --mount=type=cache,target=/root/.cache \
-    uv pip install \
-    --find-links https://github.com/aureka-team/common/releases/expanded_assets/index \
-    -r requirements.txt
+    uv pip install -r requirements.txt
 
 RUN rm -rf /tmp/*
 

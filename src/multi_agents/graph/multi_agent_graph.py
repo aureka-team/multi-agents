@@ -1,8 +1,9 @@
+from rich.console import Console
 from collections.abc import Hashable
+
 from pydantic import BaseModel, StrictStr, StrictBool, ConfigDict
 from typing import Type, Callable, Literal, TypeVar, Generic, Awaitable, Any
 
-from common.logger import get_logger
 from IPython.display import Image, display
 
 from langgraph.graph import StateGraph
@@ -10,7 +11,7 @@ from langgraph.graph.state import CompiledStateGraph
 from langgraph.checkpoint.memory import InMemorySaver
 
 
-logger = get_logger(__name__)
+console = Console()
 
 
 StateT = TypeVar("StateT", bound=BaseModel)
@@ -91,7 +92,7 @@ class MultiAgentGraph(BaseModel, Generic[StateT, ContextT]):
         ] = "ascii",
     ) -> None:
         if self.graph is None:
-            logger.error("the graph was not created.")
+            console.log("Error: the graph was not created.", style="red")
             return
 
         match draw_type:
